@@ -1,0 +1,172 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/MatheusCrisostimo/Aprendizado_Python/blob/main/Cases_R%C3%A1pidos\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# Sistema de Gerenciamento de Tarefas (To-Do List)\n",
+        "\n",
+        "Crie um aplicativo de linha de comando para gerenciar listas de tarefas. Os usuários podem adicionar, visualizar, marcar como concluídas e excluir tarefas. Você pode implementar recursos adicionais, como prioridades, datas de vencimento e categorização de tarefas."
+      ],
+      "metadata": {
+        "id": "VkBYmdN_1ZwE"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "class Task:\n",
+        "    def __init__(self, description):\n",
+        "        # Inicializa uma nova tarefa com uma descrição e define como não concluída\n",
+        "        self.description = description\n",
+        "        self.completed = False\n",
+        "\n",
+        "class ToDoList:\n",
+        "    def __init__(self):\n",
+        "        # Inicializa uma nova lista de tarefas vazia\n",
+        "        self.tasks = []\n",
+        "\n",
+        "    def add_task(self, description):\n",
+        "        # Adiciona uma nova tarefa à lista\n",
+        "        task = Task(description)\n",
+        "        self.tasks.append(task)\n",
+        "\n",
+        "    def complete_task(self, index):\n",
+        "        # Marca uma tarefa como concluída com base no índice fornecido\n",
+        "        if index >= 0 and index < len(self.tasks):\n",
+        "            self.tasks[index].completed = True\n",
+        "\n",
+        "    def remove_task(self, index):\n",
+        "        # Remove uma tarefa da lista com base no índice fornecido\n",
+        "        if index >= 0 and index < len(self.tasks):\n",
+        "            del self.tasks[index]\n",
+        "\n",
+        "    def display_tasks(self):\n",
+        "        # Exibe todas as tarefas na lista, indicando se estão concluídas ou não\n",
+        "        for index, task in enumerate(self.tasks):\n",
+        "            status = \"X\" if task.completed else \" \"\n",
+        "            print(f\"[{index+1}] [{status}] {task.description}\")\n",
+        "\n",
+        "# Exemplo de Uso:\n",
+        "todo_list = ToDoList()\n",
+        "todo_list.add_task(\"Fazer compras\")\n",
+        "todo_list.add_task(\"Estudar Python\")\n",
+        "todo_list.display_tasks()\n",
+        "todo_list.complete_task(0)\n",
+        "todo_list.display_tasks()\n",
+        "todo_list.remove_task(1)\n",
+        "todo_list.display_tasks()\n"
+      ],
+      "metadata": {
+        "id": "wKWjpIML1gMO",
+        "outputId": "3a8c9f6b-2b61-4b78-e9e2-eda0936e364c",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "execution_count": 1,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[1] [ ] Fazer compras\n",
+            "[2] [ ] Estudar Python\n",
+            "[1] [X] Fazer compras\n",
+            "[2] [ ] Estudar Python\n",
+            "[1] [X] Fazer compras\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#Jogo da Forca (Hangman Game)\n",
+        "Crie um jogo da forca em Python, onde os jogadores tentam adivinhar uma palavra oculta, digitando letras uma por uma. Você pode adicionar funcionalidades como limites de tentativas, listas de palavras temáticas e animações visuais para representar o progresso do jogo."
+      ],
+      "metadata": {
+        "id": "799-PbSy12g5"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import random\n",
+        "\n",
+        "def hangman():\n",
+        "    # Função para jogar o jogo da forca\n",
+        "    words = ['python', 'java', 'ruby', 'javascript', 'html', 'css', 'php']\n",
+        "    word = random.choice(words)\n",
+        "    guessed_letters = []\n",
+        "    tries = 6\n",
+        "\n",
+        "    while tries > 0:\n",
+        "        word_guessed = ''\n",
+        "        for letter in word:\n",
+        "            if letter in guessed_letters:\n",
+        "                word_guessed += letter\n",
+        "            else:\n",
+        "                word_guessed += '_'\n",
+        "        print(word_guessed)\n",
+        "\n",
+        "        if word_guessed == word:\n",
+        "            print(\"Parabéns! Você adivinhou a palavra correta!\")\n",
+        "            break\n",
+        "\n",
+        "        guess = input(\"Adivinhe uma letra: \").lower()\n",
+        "        guessed_letters.append(guess)\n",
+        "\n",
+        "        if guess not in word:\n",
+        "            tries -= 1\n",
+        "            print(f\"Incorreto! Você tem {tries} tentativas restantes.\")\n",
+        "\n",
+        "        if tries == 0:\n",
+        "            print(\"Você perdeu! A palavra correta era:\", word)\n",
+        "\n",
+        "# Exemplo de Uso:\n",
+        "hangman()\n"
+      ],
+      "metadata": {
+        "id": "zJyb_Y1y1_ty",
+        "outputId": "5f4e4fe3-2f86-421b-9b6e-2ec0d80774fe",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "____\n"
+          ]
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "colab": {
+      "name": "Olá, este é o Colaboratory",
+      "toc_visible": true,
+      "provenance": [],
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0
+}
